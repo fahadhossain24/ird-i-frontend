@@ -1,8 +1,9 @@
+import MainLayout from "./components/MainLayout";
 
 export default function Home() {
   return (
-    <main>
-      <h3 className="text-center bg-red-500">welcome</h3>
-    </main>
+    <div className="p-5 bg-[#ebeef2] w-full h-[100vh] overflow-y-hidden">
+      <MainLayout/>
+    </div>
   )
 }
