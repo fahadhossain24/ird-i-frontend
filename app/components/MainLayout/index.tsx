@@ -4,7 +4,7 @@ import Header from "../Header";
 import MainContent from "../MainContent";
 import SIdeMenu from "../SideMenu";
 
-const MainLayout = () => {
+const MainLayout:React.FC = () => {
     return (
         <div>
             <div className="flex gap-6">
