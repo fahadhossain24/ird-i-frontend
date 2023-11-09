@@ -1,14 +1,15 @@
 'use client'
 
 import Header from "../Header";
+import MainContent from "../MainContent";
 import SIdeMenu from "../SideMenu";
 
 const MainLayout = () => {
     return (
         <div>
-            <div className="flex gap-4">
+            <div className="flex gap-6">
                 <SIdeMenu />
-                <Header />
+                <MainContent><Header /></MainContent>
             </div>
         </div>
     );

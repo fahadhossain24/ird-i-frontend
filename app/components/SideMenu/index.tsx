@@ -1,10 +1,11 @@
+import React from 'react';
 import { Icon } from '@iconify/react';
 import logo from '../../../images/logo/logo.png'
 import supportImg from '../../../images/logo/support.png'
 import Image from 'next/image';
 
-const SIdeMenu = () => {
-    const sideMenuItems: {name: string, icon:string}[] = [
+const SIdeMenu: React.FC = () => {
+    const sideMenuItems: { name: string, icon: string }[] = [
         {
             name: 'Home',
             icon: 'material-symbols:home-outline',
@@ -37,23 +38,23 @@ const SIdeMenu = () => {
     return (
         <div className='w-[100px] h-[90vh] bg-white flex flex-col rounded-3xl overflow-y-auto scrollable-menu'>
             <div className='h-[750px]'>
-            <div className='h-[25%] pt-4 px-2 mb-[-50px] cursor-pointer'>
-                <Image src={logo} alt='logo'/>
-            </div>
-            <div className='h-[50%] text-3xl'>
-                <ul className='flex flex-col gap-5 justify-center items-center'>
-                    {
-                        sideMenuItems.map((item, index) => (
-                            <div key={index} className='w-[45px] h-[45px] bg-[#e8f0f5] rounded-full p-[7px] text-[#bbb] cursor-pointer'>
-                                <Icon icon={item.icon} />
-                            </div>
-                        ))
-                    }
-                </ul>
-            </div>
-            <div className='h-[25%] mt-24'>
-                <Image src={supportImg} alt="support" />
-            </div>
+                <div className='h-[25%] pt-4 px-2 mb-[-50px] cursor-pointer'>
+                    <Image src={logo} alt='logo' />
+                </div>
+                <div className='h-[50%] text-3xl'>
+                    <ul className='flex flex-col gap-5 justify-center items-center'>
+                        {
+                            sideMenuItems.map((item, index) => (
+                                <div key={index} className='w-[45px] h-[45px] bg-[#e8f0f5] rounded-full p-[7px] text-[#bbb] cursor-pointer'>
+                                    <Icon icon={item.icon} />
+                                </div>
+                            ))
+                        }
+                    </ul>
+                </div>
+                <div className='h-[25%] mt-32'>
+                    <Image src={supportImg} alt="support" />
+                </div>
             </div>
         </div>
     );
