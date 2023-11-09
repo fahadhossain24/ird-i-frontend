@@ -36,7 +36,7 @@ const SIdeMenu: React.FC = () => {
         },
     ]
     return (
-        <div className='w-[100px] h-[90vh] bg-white flex flex-col rounded-3xl overflow-y-auto scrollable-menu'>
+        <div className='sm:hidden lg:block w-[100px] h-[90vh] bg-white flex flex-col rounded-3xl overflow-y-auto '>
             <div className='h-[750px]'>
                 <div className='h-[25%] pt-4 px-2 mb-[-50px] cursor-pointer'>
                     <Image src={logo} alt='logo' />

@@ -1,10 +1,20 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import nameOfAllah from '../../../images/dua/Allah_traced.png';
+import axios from 'axios';
 
-const DuaCard = () => {
-    const [activeSetting, setActiveSetting] = React.useState('');
+
+interface DuaCardProps {
+    catId: number;
+    subCatId: number;
+}
+
+const DuaCard: React.FC<DuaCardProps> = ({ catId, subCatId }) => {
+    const [duas, setDuas] = useState<any[]>([]);
+    const [error, setError] = useState('');
+
+
     const readActions: { name: string, icon: string }[] = [
         {
             name: 'Copy',
@@ -28,34 +38,59 @@ const DuaCard = () => {
             icon: 'material-symbols:report-outline',
         },
     ]
-    return (
-        <div className='w-[53%] h-[90vh]'>
-                    <div className='h-full overflow-y-auto scrollable-menu'>
-                        {/* section */}
-                        <div className='bg-white py-4 px-6 rounded-lg '>
-                            <h2 className='text-[#1fa45b] font-semibold text-md'>Section: <span className='text-black font-normal text-sm'>The servant is dependent on his Lord</span></h2>
-                        </div>
 
-                        {/* dua */}
-                        <div className='bg-white mt-4 rounded-lg p-6'>
+    // fetching dua data
+    useEffect(() => {
+        axios
+            .get(`http://localhost:7000/api/v1/duas/category/${catId}`)
+            .then(data => {
+                if (data.status === 200) {
+                    setDuas(data.data.data);
+                } else {
+                    setError('Categories data not found');
+                }
+            })
+            .catch(err => {
+                setError(err.message);
+            })
+
+    }, [catId])
+
+    // console.log(duas)
+
+
+    return (
+        <div className='sm:w-full lg:w-[53%] h-[90vh]'>
+            <div className='h-full overflow-y-auto scrollable-menu scroll-smooth myDuaCard' style={{ scrollBehavior: 'smooth' }}>
+                {/* section */}
+                <div className='bg-white py-4 px-6 rounded-lg '>
+                    <h2 className='text-[#1fa45b] font-semibold text-md'>Section: <span className='text-black font-normal text-sm'>The servant is dependent on his Lord</span></h2>
+                </div>
+
+                {/* dua cards*/}
+                {
+                    duas.map((item, index) => (
+                        <div key={index} id={item.id} className='bg-white mt-4 rounded-lg p-6'>
                             <div className='flex gap-2 items-center'>
                                 <Image src={nameOfAllah} alt='Allah' />
-                                <h2 className='text-[#1fa45b] font-medium'>1. The servant is dependent on his Lord #1</h2>
+                                <h2 className='text-[#1fa45b] font-medium'>{item.dua_name_en}</h2>
                             </div>
-                            <p className='my-6 text-xl font-medium text-justify'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit temporibus voluptatum accusantium vitae ducimus. Enim hic numquam aperiam facilis dolorum commodi consectetur, cumque odio deserunt labore aliquam ipsa, nam necessitatibus.</p>
+                            <p className='my-6 text-lg font-medium text-justify text-gray-700'>{item.top_en}</p>
 
-                            <p dir='rtl' className='my-6 text-xl font-medium text-justify'>aribia here</p>
+                            <p dir='rtl' className='my-6 text-2xl py-3 font-medium text-justify'>{item.dua_arabic}</p>
 
 
-                            <p className='my-6 text-xl font-medium text-justify'><span className='italic font-semibold'>Transliteration:</span> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit temporibus voluptatum accusantium vitae ducimus. Enim hic numquam aperiam facilis dolorum commodi consectetur, cumque odio deserunt labore aliquam ipsa, nam necessitatibus.</p>
+                            <p className='my-6 text-sm text-gray-500 font-medium text-justify italic'><span className='font-semibold'>{item.transliteration_en ? 'Transliteration:' : ''}</span> {item.transliteration_en}</p>
 
-                            <p className='my-6 text-xl font-medium text-justify'>Translation: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit temporibus voluptatum accusantium vitae ducimus. Enim hic numquam aperiam facilis dolorum commodi consectetur, cumque odio deserunt labore aliquam ipsa, nam necessitatibus.</p>
+                            <p className='my-6 text-md text-gray-600 font-medium text-justify'>{item.translation_en ? 'Translation:' : ''} {item.translation_en}</p>
                             <div>
                                 <h1 className='text-[#1fa45b] text-lg'>Reference: </h1>
-                                <p>Surah Al-Fatir 35:15</p>
+                                <p>{item.refference_en}</p>
                             </div>
                             <div className='flex justify-between mt-5 items-center'>
-                                <button className='text-6xl text-[#1fa45b]'><Icon icon="carbon:play-filled" /></button>
+                                {
+                                    item.audio ? <audio src={item.audio} controls className=''></audio> : <p className='text-white'>no audio</p>
+                                }
                                 <div className='flex text-3xl gap-7 text-[#bbb]'>
                                     {
                                         readActions.map((item, index) => (
@@ -65,9 +100,11 @@ const DuaCard = () => {
                                 </div>
                             </div>
                         </div>
+                    ))
+                }
 
-                    </div>
-                </div>
+            </div>
+        </div>
     );
 };
 

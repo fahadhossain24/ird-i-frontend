@@ -3,11 +3,36 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+    width: 5px;
+    height: 30px;
   }
 
-  .scrollable-menu {
+  /* .scrollable-menu {
     scrollbar-width: none;
     -ms-overflow-style: none;
-  }
+  } */
+  /* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  display: none;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.myDuaCard:hover::-webkit-scrollbar-thumb {
+  display: block; 
+}
+  ::-webkit-media-controls-play-button {
+    border-radius: 50%;
+    background-color: green;
+}
+ 

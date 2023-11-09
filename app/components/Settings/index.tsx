@@ -4,7 +4,7 @@ import React from 'react';
 const Settings: React.FC = () => {
 
     return (
-        <div className='w-[20%] h-[80vh] bg-white rounded-xl'>
+        <div className='sm:hidden lg:block w-[20%] h-[80vh] bg-white rounded-xl'>
                     <h2 className='text-xl text-center p-8 font-semibold'>Settings</h2>
                     <div>
                         <div>

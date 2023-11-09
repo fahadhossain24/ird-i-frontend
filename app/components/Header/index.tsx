@@ -31,7 +31,7 @@ const Header: React.FC = () => {
                     </div>
                 </div>
                 <div
-                    className='w-[10%] flex justify-center items-center gap-1'
+                    className='w-[10%] sm:hidden lg:flex justify-center items-center gap-1'
                 >
                     <Image
                         src={profile}
